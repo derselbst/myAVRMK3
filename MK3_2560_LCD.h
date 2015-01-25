@@ -1,3 +1,5 @@
+#ifndef LCDDRIVER_H_INCLUDED
+#define LCDDRIVER_H_INCLUDED
 //-----------------------------------------------------------------------------
 // MK3_2560_LCD
 // Version 1.7
@@ -183,3 +185,5 @@ void lcdPrintAscPx(char x,char y,char wert); // schreib ein Ascii-Zeichen (Pixel
 #define LCD_RS   0x04		// C/D:        0=Control, 1=Data
 #define LCD_RST  0x02		// Reset:      0=reset  , 1=go
 #define LCD_CS   0x01		// ChipSelect: 0=enable , 1=disable
+
+#endif
