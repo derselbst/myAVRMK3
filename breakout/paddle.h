@@ -3,13 +3,14 @@
 
 #include <stdint.h>
 #include "../MK3_2560_LCD.h"
+#include "wall.h"
 
 typedef uint8_t position;
 
 struct _paddle
 {
-  position x;
-  const position y;// = 60;
+  position x; // this is the middle of the paddle
+  const position y;// = 60; // this is the upper bound of the paddle used for collision detection
   uint8_t len; // lenght of the paddle in pixel
 };
 
@@ -17,7 +18,7 @@ struct _paddle
 #define PADDLEHEIGHT 2
 
 
-void movePaddle(struct _paddle *const paddle);
+void movePaddle(struct _paddle *const paddle, const struct _wall *const wall);
 void printPaddle(const struct _paddle *const paddle, DRAWTYP m);
 
 #endif

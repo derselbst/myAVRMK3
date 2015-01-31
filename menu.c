@@ -18,9 +18,9 @@ void printMenu(const struct action a[])
 void getUserInput(const struct action a[], const uint8_t breakButton)
 {
 	uint8_t i=0;
-	while(!get_key_short(breakButton))
+	while(!get_key_press(breakButton))
 	{
-		if(get_key_short( a[i].button_mask ))
+		if(get_key_press( a[i].button_mask ))
 		{
 			if(a[i].task)
 			{

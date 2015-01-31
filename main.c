@@ -9,6 +9,8 @@
 #include "lcd.h"
 #include "led.h"
 
+void breakout();
+
 int main(void)
 {
     init();
@@ -37,6 +39,7 @@ int main(void)
         {"Key3: GameOfLife", &GameOfLife, (1 << KEY2)},
         {"JoyUp: Uhr", &timeLoop, (1 << JOYUP)},
         {"JoyLEFT: GofL Set", &GameOfLifeSet,(1 << JOYLEFT)},
+        {"JoyRIGHT: Breakout", &breakout,(1 << JOYRIGHT)},
         {"", (void (*)(void))NULL, 0} // terminal
     };
 

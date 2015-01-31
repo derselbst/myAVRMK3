@@ -168,7 +168,7 @@ void GameOfLifeSet()
 	uint8_t x=55, y=64-8, gen=15;
 	char bufStr[22];
 	unsigned char * varSize=&x;
-	while(!get_key_short(1<<JOYPUSH))
+	while(!get_key_press(1<<JOYPUSH))
 	{
 		sprintf(bufStr, "X: %u Y:%u G:%u   ",x,y,gen);
 
@@ -178,11 +178,11 @@ void GameOfLifeSet()
 		{
 			*varSize+=1;
 		}
-		if(get_key_short(1<<JOYDOWN))
+		if(get_key_press(1<<JOYDOWN))
 		{
 			*varSize-=1;
 		}
-		if(get_key_short(1<<JOYRIGHT))
+		if(get_key_press(1<<JOYRIGHT))
 		{
 			if(varSize==&x)
 			{
@@ -193,7 +193,7 @@ void GameOfLifeSet()
 				varSize=&gen;
 			}
 		}
-		if(get_key_short(1<<JOYLEFT))
+		if(get_key_press(1<<JOYLEFT))
 		{
 			if(varSize==&y)
 			{
