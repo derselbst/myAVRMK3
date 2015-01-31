@@ -6,7 +6,7 @@ AVRLD=$(AVR)g++
 AS=$(AVR)as
 AVRDUDE=avrdude
 
-CFLAGS=-Wall -Wextra -g -mmcu=atmega2560 -DF_CPU=16000000UL
+CFLAGS=-Wall -Wextra -g -O0 -mmcu=atmega2560 -DF_CPU=16000000UL
 LDFLAGS=-L/usr/lib -mmcu=atmega2560 -Wl,-Map=prog.map,--cref
 
 OBJ= button.o common.o gameoflife.o interrupt.o lcd.o main.o menu.o MK3_2560_LCD.o setup.o time.o breakout/logic.o breakout/ball.o breakout/paddle.o breakout/wall.o
