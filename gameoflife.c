@@ -137,7 +137,7 @@ static void StartGame(void)
     }
 
     MK3_LCD_STRING_PX(0,((SIZE_FIELD_Y+2) % 64), "Button3: Hauptmenu");
-    while (!get_key_short( 1 << KEY2 ))
+    while (!get_key_press( 1 << KEY2 ))
     {
     }
 
