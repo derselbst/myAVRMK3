@@ -31,7 +31,7 @@
 			(b) = _a;            \
 			(a) = _b;            \
 		})
-		
+
 /**
  * @brief checks if a collision in one dimension occurred
  *
@@ -53,24 +53,24 @@ inline bool isCollision(uint8_t upperBound, uint8_t lowerBound, const uint8_t po
 
 static void collisionWall(struct _ball *const ball, const struct _wall *const wall)
 {
-  
-  if(isCollision(wall->left + BALLSIZE, wall->left, ball->x))
+
+  if(isCollision(wall->left + BALLSIZE + 1, wall->left, ball->x))
   {
     // collision with left wall
     ball->dx=1;
   }
-  else if(isCollision(wall->right, wall->right - BALLSIZE, ball->x))
+  else if(isCollision(wall->right, wall->right - BALLSIZE - 1, ball->x))
   {
         // collision with right wall
         ball->dx=-1;
   }
-  
-  if(isCollision(wall->top + BALLSIZE, wall->top, ball->y))
+
+  if(isCollision(wall->top + BALLSIZE + 1, wall->top, ball->y))
   {
     ball->dy=1;
   }
-  
-  
+
+
 //     if(ball->x-BALLSIZE == wall->left+1)
 //     {
 //         // collision with left wall
@@ -81,7 +81,7 @@ static void collisionWall(struct _ball *const ball, const struct _wall *const wa
 //         // collision with right wall
 //         ball->dx=-1;
 //     }
-// 
+//
 //     if(ball->y-BALLSIZE == wall->top+1)
 //     {
 //         ball->dy=1;
@@ -91,7 +91,7 @@ static void collisionWall(struct _ball *const ball, const struct _wall *const wa
 static bool collisionPaddle(struct _ball *const ball, const struct _paddle *const paddle)
 {
     // ball must be above paddle and between both ends of paddle
-    if(ball->y+1+BALLSIZE == paddle->y && ((ball->x >= paddle->x+paddle->len) && (ball->x <= paddle->x+paddle->len)))
+    if(isCollision(paddle->y+PADDLEHEIGHT, paddle->y, ball->y + BALLSIZE + 1) && isCollision(paddle->x + paddle->len/2, paddle->x - paddle->len/2, ball->x))
     {
         // collision with paddle
         ball->dy = -1;
