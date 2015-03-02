@@ -43,49 +43,31 @@
  */
 inline bool isCollision(uint8_t upperBound, uint8_t lowerBound, const uint8_t pos)
 {
-	if (upperBound < lowerBound)
-	{
-		swap(upperBound, lowerBound);
-	}
-	return lowerBound <= pos && pos <= upperBound; // lowerBound <= pos <= upperBound
+    if (upperBound < lowerBound)
+    {
+        swap(upperBound, lowerBound);
+    }
+    return lowerBound <= pos && pos <= upperBound; // lowerBound <= pos <= upperBound
 }
 
 
 static void collisionWall(struct _ball *const ball, const struct _wall *const wall)
 {
-
-  if(isCollision(wall->left + BALLSIZE + 1, wall->left, ball->x))
-  {
-    // collision with left wall
-    ball->dx=1;
-  }
-  else if(isCollision(wall->right, wall->right - BALLSIZE - 1, ball->x))
-  {
+    if(isCollision(wall->left + BALLSIZE + 1, wall->left, ball->x))
+    {
+        // collision with left wall
+        ball->dx=1;
+    }
+    else if(isCollision(wall->right, wall->right - BALLSIZE - 1, ball->x))
+    {
         // collision with right wall
         ball->dx=-1;
-  }
+    }
 
-  if(isCollision(wall->top + BALLSIZE + 1, wall->top, ball->y))
-  {
-    ball->dy=1;
-  }
-
-
-//     if(ball->x-BALLSIZE == wall->left+1)
-//     {
-//         // collision with left wall
-//         ball->dx=1;
-//     }
-//     else if(ball->x+BALLSIZE == wall->right-1)
-//     {
-//         // collision with right wall
-//         ball->dx=-1;
-//     }
-//
-//     if(ball->y-BALLSIZE == wall->top+1)
-//     {
-//         ball->dy=1;
-//     }
+    if(isCollision(wall->top + BALLSIZE + 1, wall->top, ball->y))
+    {
+        ball->dy=1;
+    }
 }
 
 static bool collisionPaddle(struct _ball *const ball, const struct _paddle *const paddle)
