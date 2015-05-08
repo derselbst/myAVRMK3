@@ -15,7 +15,7 @@
 //-----------------------------------------------------------------------------
 // das File muss im Ordner
 // "myAVR/WinAVR/AVR/Include/UB_MK3_2560/"
-// liegen und mit #include <UB_MK3_2560/MK3_2560_LCD.h>
+// liegen und mit #include <UB_MK3_2560/lcd.h>
 // eingebunden werden
 //
 // Vorsicht :  Falls die Funktionen "FLOAT" benutzt werden sollen,
@@ -122,6 +122,12 @@ typedef enum {
   FLT_6P3     // Float mit 6 Ziffern und 3 Nachkommastellen
 }F_ZAHLTYP;
 
+typedef struct
+{
+       uint8_t x;
+       uint8_t y;
+} point;
+
 
 
 //-----------------------------------------------------------------------------
@@ -149,8 +155,11 @@ void MK3_LCD_BMP_AT(char x,char y,const unsigned char *ptr,int laenge);       //
 void MK3_LCD_BMP_FLASH_AT(char x,char y,const unsigned char *ptr,int laenge); // Bild anzeigen
 void MK3_LCD_STRING_PX(char x,char y,const char *ptr);               // String (Pixelgenau)
 void MK3_LCD_UTYP_PX(char x,char y,unsigned int wert,U_ZAHLTYP typ); // unsigned (Pixelgenau)
-//-----------------------------------------------------------------------------
 
+void drawline(point p0, point p1);
+void toogleLCDDisp();
+void toogleLCDLight();
+//-----------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------
 // interne Funktionen

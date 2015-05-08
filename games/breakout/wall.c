@@ -1,5 +1,5 @@
 #include <stdint.h>
-#include "../MK3_2560_LCD.h"
+#include "lcd.h"
 #include "wall.h"
 
 void printWall(const struct _wall *const wall, DRAWTYP m)

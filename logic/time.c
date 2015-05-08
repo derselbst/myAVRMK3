@@ -2,7 +2,7 @@
 #include <avr/interrupt.h>
 #include "time.h"
 #include "common.h"
-#include "MK3_2560_LCD.h"
+#include "lcd.h"
 #include "button.h"
 #include "menu.h"
 

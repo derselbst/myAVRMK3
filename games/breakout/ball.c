@@ -1,6 +1,6 @@
 #include <stdint.h>
 #include "ball.h"
-#include "../MK3_2560_LCD.h"
+#include "lcd.h"
 
 void printBall(const struct _ball *const ball, DRAWTYP m)
 {

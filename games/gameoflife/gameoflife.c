@@ -3,10 +3,9 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include <stdbool.h>
-#include "events.h"
 #include "gameoflife.h"
 #include "common.h"
-#include "MK3_2560_LCD.h"
+#include "lcd.h"
 #include "setup.h"
 #include "button.h"
 #include "led.h"

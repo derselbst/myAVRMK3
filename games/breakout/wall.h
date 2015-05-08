@@ -2,7 +2,7 @@
 #define WALL_H_INCLUDED
 
 #include <stdint.h>
-#include "../MK3_2560_LCD.h"
+#include "lcd.h"
 
 struct _wall
 {

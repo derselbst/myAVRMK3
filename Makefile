@@ -8,10 +8,12 @@ AVROBJCOPY=$(AVR)objcopy
 AS=$(AVR)as
 AVRDUDE=avrdude
 
-CFLAGS=-Wall -Wextra -g -O0 -mmcu=atmega2560 -DF_CPU=16000000UL
+INCLUDES=-Igames/breakout/ -Igames/gameoflife/ -Ihal/ -Ilogic/
+
+CFLAGS=-Wall -Wextra -g -O0 -mmcu=atmega2560 -DF_CPU=16000000UL $(INCLUDES)
 LDFLAGS= -mmcu=atmega2560 -Wl,-Map=prog.map,--cref
 
-OBJ= button.o common.o gameoflife.o interrupt.o lcd.o main.o menu.o MK3_2560_LCD.o setup.o time.o breakout/logic.o breakout/ball.o breakout/paddle.o breakout/wall.o
+OBJ= hal/button.o logic/common.o games/gameoflife/gameoflife.o hal/interrupt.o main.o logic/menu.o hal/lcd.o hal/setup.o logic/time.o games/breakout/logic.o games/breakout/ball.o games/breakout/paddle.o games/breakout/wall.o
 SRC = $(OBJ:%.o=%.c)
 
 DEPENDFILE = .depend
@@ -19,7 +21,7 @@ DEPENDFILE = .depend
 all: prog
 
 dep: $(SRC)
-	$(AVRCC) -MM $(SRC) > $(DEPENDFILE)
+	$(AVRCC) -MM $(INCLUDES) $(SRC) > $(DEPENDFILE)
 
 # include the dependecy file, do not abort if it doesnt exists
 -include $(DEPENDFILE)
@@ -34,7 +36,7 @@ prog: dep $(OBJ)
 
 .PHONY: clean
 clean:
-	rm -rf prog.elf $(OBJ) $(DEPENDFILE) prog.map
+	rm -rf prog.elf $(OBJ) $(DEPENDFILE) prog.map prog.hex prog.lss
 
 burn: prog
 	$(AVRDUDE) -p m2560 -c avr911 -P /dev/ttyUSB0 -U flash:w:prog.hex:i

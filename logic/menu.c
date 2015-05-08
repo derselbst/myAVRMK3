@@ -1,7 +1,7 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdint.h>
-#include "MK3_2560_LCD.h"
+#include "lcd.h"
 #include "menu.h"
 #include "button.h"
 

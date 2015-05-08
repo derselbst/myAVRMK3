@@ -3,7 +3,7 @@
 #include "setup.h" // init()
 #include "common.h" // waitMS()
 #include "gameoflife.h" // :D
-#include "MK3_2560_LCD.h" // LCD_LIGHT()
+#include "lcd.h" // LCD_LIGHT()
 #include "time.h" // timeLoop()
 #include "menu.h" // printMenu()
 #include "lcd.h"

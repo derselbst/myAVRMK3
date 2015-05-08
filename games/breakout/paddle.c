@@ -1,9 +1,9 @@
 #include <stdint.h>
 
-#include "../MK3_2560_LCD.h"
+#include "lcd.h"
 #include "paddle.h"
-#include "../common.h"
-#include "../button.h"
+#include "common.h"
+#include "button.h"
 
 void printPaddle(const struct _paddle *const paddle, DRAWTYP m)
 {

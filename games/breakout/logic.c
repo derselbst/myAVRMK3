@@ -1,10 +1,10 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-#include "../common.h"
-#include "../MK3_2560_LCD.h"
-#include "../led.h"
-#include "../button.h"
+#include "common.h"
+#include "lcd.h"
+#include "led.h"
+#include "button.h"
 #include "ball.h"
 #include "paddle.h"
 #include "wall.h"

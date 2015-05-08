@@ -1,7 +1,7 @@
 #include <avr/interrupt.h>
 //#include <util/delay.h>
 
-//#include "MK3_2560_LCD.h"
+//#include "lcd.h"
 #include "common.h"
 #include "7segfont.h"
 #include "time.h"

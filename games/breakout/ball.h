@@ -2,7 +2,7 @@
 #define BALL_H_INCLUDED
 
 #include <stdint.h>
-#include "../MK3_2560_LCD.h"
+#include "lcd.h"
 
 typedef uint8_t position;
 
