@@ -20,7 +20,7 @@ uint16_t ADC_getResult()
 // Write one to ADLAR to left adjust the result. Otherwise, the result is right adjusted. Changing the
 // ADLAR bit will affect the ADC Data Register immediately, regardless of any ongoing conversions.
 
-// the data register (ADCL and ADCH) wont get updated until ADCH is read
+// after ADCL is read, the ADC Data Register is not updated until ADCH is read
     uint16_t result;
     if (ADMUX & ADLAR)
     {
