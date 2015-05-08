@@ -91,7 +91,7 @@ void breakout()
 {
     MK3_LCD_CLEAR();
     struct _paddle paddle= {LCD_MAXX/2, 60, 32};
-    struct _ball ball= {LEDPORT, LEDPORT & 0x1F, -1, -1};
+    struct _ball ball= {LEDPORT%LCD_MAXX, LEDPORT %LCD_MAXY/*& 0x1F*/, -1, -1};
     const struct _wall wall= {0,0,LCD_MAXX-1};
 
     printWall(&wall, MODE_SET);
