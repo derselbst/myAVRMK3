@@ -109,7 +109,6 @@ ISR(PCINT2_vect)
 
 }
 
-volatile bool tick=false;
 // Interrupt-Routine
 // Timer1 Ueberlauf
 ISR (TIMER1_OVF_vect)
@@ -134,32 +133,7 @@ ISR (TIMER1_OVF_vect)
 			index=0;
 		}
 	}
-    time.sec++;
-	// no need to check for >= in the following, since it only gets increased by one
-	// thus use the bit faster == check
-    if(time.sec == 60)
-    {
-        time.sec=0;
-        time.minute++;
-
-        if(time.minute == 60)
-        {
-            time.minute=0;
-            time.hour++;
-
-            if(time.hour == 24)
-            {
-                time.hour=0;
-                time.wday++;
-
-                if(time.wday == 7)
-                {
-                    time.wday=0;
-                }
-            }
-        }
-    }
-
+    time++;
     wert++;
 	// start value of timer 1
     TCNT1 = 3036;

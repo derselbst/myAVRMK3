@@ -6,12 +6,12 @@
 struct _time
 {
     uint8_t hour;
-    uint8_t wday;
     uint8_t minute;
     uint8_t sec;
 };
 
-extern volatile struct _time time;
+extern volatile uint32_t time;
+extern volatile uint8_t tick;
 
 void timeLoop();
 

@@ -6,12 +6,24 @@
 #include "button.h"
 #include "menu.h"
 
-volatile struct _time time={0,0,0,0};
-extern volatile bool tick;
+// global clock in seconds
+volatile uint32_t time=0;
 
-static void printTime(const struct _time time)
+// becomes true whenever the time has changed
+volatile uint8_t tick=false;
+
+static struct _time timeToStruct(const uint32_t time)
 {
-    char strTime[14];
+    struct _time tempTime;
+	tempTime.sec    = time % 60u;
+	tempTime.minute = (time / 60u) % 60u;
+	tempTime.hour   = time / 60u / 60u;
+    return tempTime;
+}
+
+static void printTimeStruct(const struct _time time)
+{
+    static char strTime[16];
     sprintf(strTime, "%02u:%02u:%02u Uhr",time.hour,time.minute,time.sec);
     MK3_LCD_STRING_PX(10,LCD_MAXY-20, strTime);
 }
@@ -25,27 +37,24 @@ static void setClock()
 	};
 	printMenu(timesetmenu);
 
-	struct _time tempTime;
 	cli();
-	tempTime.minute = time.minute;
-	tempTime.sec    = time.sec;
-	tempTime.hour   = time.hour;
-	tempTime.wday   = time.wday;
-	sei();
-	printTime(tempTime);
+    uint32_t backupTime = time;
+    sei();
+	struct _time tempTime = timeToStruct(backupTime);
+	printTimeStruct(tempTime);
 	unsigned char * varSize=&tempTime.hour;
 
 	while(!get_key_short(timesetmenu[0].button_mask))
 	{
-		if(get_key_state(1<<JOYUP))
+		if(get_key_press(1<<JOYUP))
 		{
 			*varSize+=1;
-			printTime(tempTime);
+			printTimeStruct(tempTime);
 		}
 		if(get_key_short(1<<JOYDOWN))
 		{
 			*varSize-=1;
-			printTime(tempTime);
+			printTimeStruct(tempTime);
 		}
 		if(get_key_short(1<<JOYRIGHT))
 		{
@@ -71,11 +80,16 @@ static void setClock()
 		}
 	}
 
+	tempTime.minute = tempTime.minute < 60u ? tempTime.minute : 0u;
+	tempTime.sec    = tempTime.sec < 60u ? tempTime.sec : 0u;
+	tempTime.hour   = tempTime.hour < 24u ? tempTime.hour : 0u;
+    
+    backupTime = tempTime.hour * 60u * 60u;
+    backupTime+= tempTime.minute * 60u;
+    backupTime+= tempTime.sec;
+    
 	cli();
-	time.minute = tempTime.minute < 60 ? tempTime.minute : 0;
-	time.sec    = tempTime.sec < 60 ? tempTime.sec : 0;
-	time.hour   = tempTime.hour < 24 ? tempTime.hour : 0;
-	time.wday   = tempTime.wday < 7 ? tempTime.wday : 0;
+    time = backupTime;
 	sei();
 }
 
@@ -96,15 +110,14 @@ void timeLoop()
         {
             // uncritical, no need to disable interrupts here
             tick=false;
-
-            printTime(time);
+            printTimeStruct(timeToStruct(time));
         }
 
-		if(get_key_short(timemenu[0].button_mask))
-		{
-			timemenu[0].task();
-			printMenu(timemenu);
-		}
+        if(get_key_short(timemenu[0].button_mask))
+        {
+            timemenu[0].task();
+            printMenu(timemenu);
+        }
     }
     __asm__ __volatile__ ( "nop\nnop\nnop\n");
 

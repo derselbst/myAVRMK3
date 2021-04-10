@@ -640,7 +640,7 @@ void lcdPrintAsc(char wert) {    // schreib ein Ascii-Zeichen an Cursor-Pos
 void lcdBytePx(char x,char y,char wert) { // schreibt ein Byte (Pixelgenau)
   unsigned char y_off,y_pos;
   unsigned char w1,w2;
-  unsigned int maske_16,data_16;
+  unsigned int maske_16,data_16=0;
 
   if((x<LCD_MAXX) && (y<LCD_MAXY)) {
     // X-Koordinate

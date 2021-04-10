@@ -10,7 +10,7 @@ AVRDUDE=avrdude
 
 INCLUDES=-Igames/breakout/ -Igames/gameoflife/ -Ihal/ -Ilogic/
 
-CFLAGS=-Wall -Wextra -g -O0 -mmcu=atmega2560 -DF_CPU=16000000UL $(INCLUDES)
+CFLAGS=-Wall -Wextra -O0 -mmcu=atmega2560 -DF_CPU=16000000UL $(INCLUDES)
 LDFLAGS= -mmcu=atmega2560 -Wl,-Map=prog.map,--cref
 
 OBJ= hal/button.o logic/common.o games/gameoflife/gameoflife.o hal/interrupt.o main.o logic/menu.o hal/lcd.o hal/setup.o logic/time.o games/breakout/logic.o games/breakout/ball.o games/breakout/paddle.o games/breakout/wall.o
