@@ -41,7 +41,7 @@
  * @param lowerBound the coordinate of the lower included bound
  * @param pos the currenz position of to object to test
  */
-inline bool isCollision(uint8_t upperBound, uint8_t lowerBound, const uint8_t pos)
+bool isCollision(uint8_t upperBound, uint8_t lowerBound, const uint8_t pos)
 {
     if (upperBound < lowerBound)
     {

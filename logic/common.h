@@ -27,7 +27,7 @@
 
 
 uint8_t findfirstbitset(uint8_t x);
-inline bool onlyonebitset(uint8_t x);
+bool onlyonebitset(uint8_t x);
 void waitMs(uint16_t ms);
 
 

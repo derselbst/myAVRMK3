@@ -27,7 +27,7 @@
 #endif
 
 
-inline bool onlyonebitset(uint8_t x)
+bool onlyonebitset(uint8_t x)
 {
     return (x && !(x & (x - 1)));
 }
