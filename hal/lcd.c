@@ -133,7 +133,7 @@ void MK3_LCD_CLEAR(void) {       // zum loeschen des LCD
 }
 
 //-----------------------------------------------------------------------------
-void MK3_LCD_SETCURSOR(char x,char y) { // zum setzen des cursors
+void MK3_LCD_SETCURSOR(unsigned char x,unsigned char y) { // zum setzen des cursors
   // X = X-Koordinate in Pixel (0...MAXX-1)
   // Y = Y-Koordinate in Pixel (0...MAXY-1)
 
@@ -154,7 +154,7 @@ void MK3_LCD_PRINT_BYTE(char wert) { // zum schreiben von daten ab Cursor
 
 //-----------------------------------------------------------------------------
 #if USE_MK3_LCD_PRINT_AT==1
-void MK3_LCD_PRINT_AT(char x,char y,char wert) {     // zum schreiben von daten
+void MK3_LCD_PRINT_AT(unsigned char x,unsigned char y,char wert) {     // zum schreiben von daten
   MK3_LCD_SETCURSOR(x,y);
   MK3_LCD_PRINT_BYTE(wert);
 }
@@ -162,7 +162,7 @@ void MK3_LCD_PRINT_AT(char x,char y,char wert) {     // zum schreiben von daten
 
 //-----------------------------------------------------------------------------
 #if USE_MK3_LCD_PIXEL_AT==1
-void MK3_LCD_PIXEL_AT(char x,char y,DRAWTYP m) {  // zum zeichnen eines pixels
+void MK3_LCD_PIXEL_AT(unsigned char x,unsigned char y,DRAWTYP m) {  // zum zeichnen eines pixels
   char maske,wert;
 
   MK3_LCD_SETCURSOR(x,y);
@@ -210,7 +210,7 @@ void MK3_LCD_PRINT_STRING(const char *ptr) { // zum schreiben von texten ab Curs
 
 //-----------------------------------------------------------------------------
 #if USE_MK3_LCD_STRING_AT==1
-void MK3_LCD_STRING_AT(char x,char y,const char *ptr) {  // zum schreiben eines Strings
+void MK3_LCD_STRING_AT(unsigned char x,unsigned char y,const char *ptr) {  // zum schreiben eines Strings
   MK3_LCD_SETCURSOR(x,y);
   MK3_LCD_PRINT_STRING(ptr);
 }
@@ -243,7 +243,7 @@ void MK3_LCD_PRINT_FLOAT(double wert) {     // zum schreiben von float ab Cursor
 
 //-----------------------------------------------------------------------------
 #if USE_MK3_LCD_UINT_AT==1
-void MK3_LCD_UINT_AT(char x,char y,unsigned int wert) {  // zum schreiben einer Zahl
+void MK3_LCD_UINT_AT(unsigned char x,unsigned char y,unsigned int wert) {  // zum schreiben einer Zahl
   MK3_LCD_SETCURSOR(x,y);
   MK3_LCD_PRINT_UINT(wert);
 }
@@ -251,7 +251,7 @@ void MK3_LCD_UINT_AT(char x,char y,unsigned int wert) {  // zum schreiben einer 
 
 //-----------------------------------------------------------------------------
 #if USE_MK3_LCD_FLOAT_AT==1
-void MK3_LCD_FLOAT_AT(char x,char y,double wert) {  // zum schreiben einer Float
+void MK3_LCD_FLOAT_AT(unsigned char x,unsigned char y,double wert) {  // zum schreiben einer Float
   MK3_LCD_SETCURSOR(x,y);
   MK3_LCD_PRINT_FLOAT(wert);
 }
@@ -343,7 +343,7 @@ void MK3_LCD_PRINT_FTYP(double wert,F_ZAHLTYP typ) {
 
 //-----------------------------------------------------------------------------
 #if USE_MK3_LCD_BMP_AT==1
-void MK3_LCD_BMP_AT(char x,char y,const unsigned char *ptr,int laenge) {
+void MK3_LCD_BMP_AT(unsigned char x,unsigned char y,const unsigned char *ptr,int laenge) {
   // anzeigen eines Bildes auf dem Display (aus dem RAM)
   // an x,y Position
   // ptr = pointer auf das Bild-Array
@@ -381,7 +381,7 @@ void MK3_LCD_BMP_AT(char x,char y,const unsigned char *ptr,int laenge) {
 
 //-----------------------------------------------------------------------------
 #if USE_MK3_LCD_BMP_FLASH_AT==1
-void MK3_LCD_BMP_FLASH_AT(char x,char y,const unsigned char *ptr,int laenge) {
+void MK3_LCD_BMP_FLASH_AT(unsigned char x,unsigned char y,const unsigned char *ptr,int laenge) {
   // anzeigen eines Bildes auf dem Display (aus dem FLASH)
   // an x,y Position
   // ptr = pointer auf das Bild-Array
@@ -637,7 +637,7 @@ void lcdPrintAsc(char wert) {    // schreib ein Ascii-Zeichen an Cursor-Pos
 
 //-----------------------------------------------------------------------------
 #if USE_MK3_LCD_PIXELGENAU==1
-void lcdBytePx(char x,char y,char wert) { // schreibt ein Byte (Pixelgenau)
+void lcdBytePx(unsigned char x,unsigned char y,char wert) { // schreibt ein Byte (Pixelgenau)
   unsigned char y_off,y_pos;
   unsigned char w1,w2;
   unsigned int maske_16,data_16=0;
@@ -701,7 +701,7 @@ void lcdBytePx(char x,char y,char wert) { // schreibt ein Byte (Pixelgenau)
 
 //-----------------------------------------------------------------------------
 #if USE_MK3_LCD_PIXELGENAU==1
-void lcdPrintAscPx(char x,char y,char wert) { // schreib ein Ascii-Zeichen (Pixelgenau)
+void lcdPrintAscPx(unsigned char x,unsigned char y,char wert) { // schreib ein Ascii-Zeichen (Pixelgenau)
   unsigned char c_pos;
 
   if((wert<LCD_FIRST_CHAR) || (wert>LCD_LAST_CHAR)) {
@@ -725,7 +725,7 @@ void lcdPrintAscPx(char x,char y,char wert) { // schreib ein Ascii-Zeichen (Pixe
 
 //-----------------------------------------------------------------------------
 #if USE_MK3_LCD_PIXELGENAU==1
-void MK3_LCD_STRING_PX(char x,char y,const char *ptr) { // print Text (Pixelgenau)
+void MK3_LCD_STRING_PX(unsigned char x,unsigned char y,const char *ptr) { // print Text (Pixelgenau)
   unsigned int n;
   unsigned char c;
   unsigned char x_pos;
@@ -746,7 +746,7 @@ void MK3_LCD_STRING_PX(char x,char y,const char *ptr) { // print Text (Pixelgena
 
 //-----------------------------------------------------------------------------
 #if USE_MK3_LCD_PIXELGENAU==1
-void MK3_LCD_UTYP_PX(char x,char y,unsigned int wert,U_ZAHLTYP typ) {
+void MK3_LCD_UTYP_PX(unsigned char x,unsigned char y,unsigned int wert,U_ZAHLTYP typ) {
   // anzeigen einer "unsigned" Zahl
   // mit einem bestimmten Formatierung
   // Pixelgenau

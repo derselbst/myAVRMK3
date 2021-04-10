@@ -136,13 +136,13 @@ typedef struct
 void MK3_INIT_LCD(void);                         // zum initialisieren des LCD
 void MK3_LCD_LIGHT(bool wert);                   // zum ein-ausschalten der Beleuchtung
 void MK3_LCD_CLEAR(void);                        // zum loeschen des LCD
-void MK3_LCD_SETCURSOR(char x,char y);           // zum setzen des cursors
+void MK3_LCD_SETCURSOR(unsigned char x,unsigned char y);           // zum setzen des cursors
 void MK3_LCD_PRINT_BYTE(char wert);              // zum schreiben von daten ab Cursor
-void MK3_LCD_PRINT_AT(char x,char y,char wert);  // zum schreiben von daten
-void MK3_LCD_PIXEL_AT(char x,char y,DRAWTYP m);  // zum zeichnen eines pixels
-void MK3_LCD_STRING_AT(char x,char y,const char *ptr); // zum schreiben eines Strings
-void MK3_LCD_UINT_AT(char x,char y,unsigned int wert); // zum schreiben einer Zahl
-void MK3_LCD_FLOAT_AT(char x,char y,double wert);      // zum schreiben einer Float
+void MK3_LCD_PRINT_AT(unsigned char x,unsigned char y,char wert);  // zum schreiben von daten
+void MK3_LCD_PIXEL_AT(unsigned char x,unsigned char y,DRAWTYP m);  // zum zeichnen eines pixels
+void MK3_LCD_STRING_AT(unsigned char x,unsigned char y,const char *ptr); // zum schreiben eines Strings
+void MK3_LCD_UINT_AT(unsigned char x,unsigned char y,unsigned int wert); // zum schreiben einer Zahl
+void MK3_LCD_FLOAT_AT(unsigned char x,unsigned char y,double wert);      // zum schreiben einer Float
 void MK3_LCD_DARK(bool wert);                    // zum ein-ausschalten des Display
 void MK3_LCD_INVERS(bool wert);                  // zum invertieren des Display
 void MK3_LCD_PRINT_STRING(const char *ptr);      // zum schreiben von texten ab Cursor
@@ -151,10 +151,10 @@ void MK3_LCD_PRINT_FLOAT(double wert);           // zum schreiben von float ab C
 void MK3_LCD_PRINT_UTYP(unsigned int wert,U_ZAHLTYP typ); // unsigned zahlentyp
 void MK3_LCD_PRINT_STYP(int wert,S_ZAHLTYP typ);          // signed zahlentyp
 void MK3_LCD_PRINT_FTYP(double wert,F_ZAHLTYP typ);       // float zahlentyp
-void MK3_LCD_BMP_AT(char x,char y,const unsigned char *ptr,int laenge);       // Bild anzeigen
-void MK3_LCD_BMP_FLASH_AT(char x,char y,const unsigned char *ptr,int laenge); // Bild anzeigen
-void MK3_LCD_STRING_PX(char x,char y,const char *ptr);               // String (Pixelgenau)
-void MK3_LCD_UTYP_PX(char x,char y,unsigned int wert,U_ZAHLTYP typ); // unsigned (Pixelgenau)
+void MK3_LCD_BMP_AT(unsigned char x,unsigned char y,const unsigned char *ptr,int laenge);       // Bild anzeigen
+void MK3_LCD_BMP_FLASH_AT(unsigned char x,unsigned char y,const unsigned char *ptr,int laenge); // Bild anzeigen
+void MK3_LCD_STRING_PX(unsigned char x,unsigned char y,const char *ptr);               // String (Pixelgenau)
+void MK3_LCD_UTYP_PX(unsigned char x,unsigned char y,unsigned int wert,U_ZAHLTYP typ); // unsigned (Pixelgenau)
 
 void drawline(point p0, point p1);
 void toogleLCDDisp();
@@ -169,8 +169,8 @@ void lcdSendCmd(char wert);     // sendet kommandos zum LCD
 void lcdSend(char wert);        // sendet werte zum LCD
 char lcdReadData(void);         // liest ein byte an Cursor-Pos aus
 void lcdPrintAsc(char wert);    // schreib ein Ascii-Zeichen an Cursor-Pos
-void lcdBytePx(char x,char y,char wert);     // schreibt ein Byte (Pixelgenau)
-void lcdPrintAscPx(char x,char y,char wert); // schreib ein Ascii-Zeichen (Pixelgenau)
+void lcdBytePx(unsigned char x,unsigned char y,char wert);     // schreibt ein Byte (Pixelgenau)
+void lcdPrintAscPx(unsigned char x,unsigned char y,char wert); // schreib ein Ascii-Zeichen (Pixelgenau)
 
 
 
