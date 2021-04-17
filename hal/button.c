@@ -18,7 +18,7 @@ ISR( TIMER0_OVF_vect )                            // every 10ms
     static uint8_t ct0, ct1, rpt;
     uint8_t i;
 
-    TCNT0 = (uint8_t)(int16_t)-(F_CPU / 1024 * 10e-3 + 0.5);  // preload for 10ms
+    TCNT0 = (uint8_t)(int16_t)-(F_CPU / (1024.0 * 1024) + 0.5);  // preload for 10ms
 
     i = key_state ^ ~KEY_PIN;                       // key changed ?
     ct0 = ~( ct0 & i );                             // reset or count ct0

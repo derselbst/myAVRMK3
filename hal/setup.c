@@ -82,7 +82,9 @@ void init()
     // PORTG as output for VCQ10
     DDRG=0xFF;
     PORTG=0;
+    
+    DDR_BEEP|=BEEP_OUT;    // als Ausgang
+    PORT_BEEP&=~BEEP_OUT;  // BEEP AUS
 
     initInterrupts();
-    beep_init();
 }

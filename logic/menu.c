@@ -15,11 +15,16 @@ void printMenu(const struct action a[])
 	}
 }
 
-void getUserInput(const struct action a[], const uint8_t breakButton)
+void getUserInput2(const struct action a[], const uint8_t breakButton, void(*alwaysTask)(void))
 {
 	uint8_t i=0;
 	while(!get_key_press(breakButton))
 	{
+        if(alwaysTask)
+        {
+            alwaysTask();
+        }
+        
 		if(get_key_press( a[i].button_mask ))
 		{
 			if(a[i].task)
@@ -35,4 +40,9 @@ void getUserInput(const struct action a[], const uint8_t breakButton)
 			i=0;
 		}
 	}
+}
+
+void getUserInput(const struct action a[], const uint8_t breakButton)
+{
+    getUserInput2(a, breakButton, NULL);
 }

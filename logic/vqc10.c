@@ -7,12 +7,13 @@
 #include "lcd.h"
 #include "button.h"
 #include "menu.h"
+#include "speaker.h"
 
 // given a xtal speed of 16MHZ this should make us wait for about 100 us
 static uint16_t waitCycles = 533;
-static char* stringToSend = "Hallo Welt";
+static const char* stringToSend = "Hallo Welt";
 
-static void send(unsigned char x)
+static void send(unsigned char x, unsigned char enableBeep)
 {
 //     char parBit = parity_even_bit(x);
     uint16_t sendbuf = 0; // init with zero, will be used for stop bits
@@ -34,6 +35,19 @@ static void send(unsigned char x)
             ? 0xFFu
             : 0x00u
         );
+        
+        if(enableBeep)
+        {
+            if((sendbuf & 0x01) != 0)
+            {
+                PORT_BEEP|=BEEP_OUT;  // beep on
+            }
+            else
+            {
+                PORT_BEEP&=~BEEP_OUT;  // beep off
+            }
+        }
+        
         sendbuf >>= 1;
         
         // we need to send 1 bit every 128 us
@@ -56,17 +70,17 @@ void sendLoop()
     
     for(unsigned char i=0; stringToSend[i] != '\0' && i < 255; i++)
     {
-        send(stringToSend[i]);
+        send(stringToSend[i], false);
     }
     
     MK3_LCD_STRING_PX(10,LCD_MAXY-20, "Fertig");
     waitMs(500);
 }
 
-static void sendParity(unsigned char x)
+static void sendParity(unsigned char x, unsigned char enableBeep)
 {
     unsigned char isOdd = parity_even_bit(x);
-    send( (isOdd << 7) | x);
+    send( (isOdd << 7) | x, enableBeep);
 }
 
 static void sendParityLoop()
@@ -77,7 +91,7 @@ static void sendParityLoop()
     
     for(unsigned char i=0; stringToSend[i] != '\0' && i < 255; i++)
     {
-        sendParity(stringToSend[i]);
+        sendParity(stringToSend[i], false);
     }
     
     MK3_LCD_STRING_PX(10,LCD_MAXY-20, "Fertig");
@@ -134,6 +148,64 @@ static void changeString()
     }
 }
 
+static char dbgLetter[] = "A";
+
+static void foreverA()
+{
+	static const struct action menu[]=
+	{
+		{"Key3: zurueck", (void (*)(void))NULL, (1 << KEY2)},
+		{"", (void(*)(void))NULL, 0}
+	};
+    while(!get_key_state(menu[0].button_mask))
+	{
+        send(dbgLetter[0], true);
+	}
+}
+
+static void foreverAWithParity()
+{
+	static const struct action menu[]=
+	{
+		{"Key3: zurueck", (void (*)(void))NULL, (1 << KEY2)},
+		{"", (void(*)(void))NULL, 0}
+	};
+    while(!get_key_state(menu[0].button_mask))
+	{
+        sendParity(dbgLetter[0], true);
+	}
+}
+
+static void dbgprev()
+{
+    dbgLetter[0]--;
+}
+
+static void dbgnext()
+{
+    dbgLetter[0]++;
+}
+
+static void dbgprint()
+{
+    MK3_LCD_STRING_PX(10,LCD_MAXY-10, dbgLetter);
+}
+
+static void debug()
+{
+	static const struct action menu[]=
+	{
+		{"Key1: No Parity", foreverA, (1 << KEY0)},
+		{"Key2: With Parity", foreverAWithParity, (1 << KEY1)},
+		{"Key3: zurueck", (void (*)(void))NULL, (1 << KEY2)},
+		{"Up: Prev", dbgprev, (1 << JOYUP)},
+		{"Down: Next", dbgnext, (1 << JOYDOWN)},
+		{"", (void(*)(void))NULL, 0}
+	};
+	printMenu(menu);
+    getUserInput2(menu, (1 << KEY2), dbgprint);
+}
+
 void vcq10Main()
 {
 	static const struct action menu[]=
@@ -141,6 +213,7 @@ void vcq10Main()
  		{"UP: Say Hi", sendLoop, (1 << JOYUP)},
 		{"Down: Say Hi w Parity", &sendParityLoop, (1 << JOYDOWN)},
 		{"Left: Set Wait Dur", &setWaitCycles, (1 << JOYLEFT)},
+		{"Right: Debug", &debug, (1 << JOYRIGHT)},
  		{"KEY1: Toggle PORTG", toogle, (1 << KEY0)},
  		{"KEY2: Change String", changeString, (1 << KEY1)},
 		{"Key3: Hauptmenü", (void (*)(void))NULL, (1 << KEY2)},

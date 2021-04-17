@@ -57,6 +57,9 @@
 //-----------------------------------------------------------------------------
 #define UB_PROGMEM __attribute((section(".progmem.ubflash")))
 
+// for some reason the board gets stuck when optimizations are turned on
+#pragma GCC push_options
+#pragma GCC optimize ("O0")
 
 //-----------------------------------------------------------------------------
 void MK3_INIT_LCD(void) {	// zum initialisieren des LCD
@@ -839,3 +842,5 @@ void toogleLCDDisp()
 		MK3_LCD_DARK(display);
     }
 }
+
+#pragma GCC pop_options

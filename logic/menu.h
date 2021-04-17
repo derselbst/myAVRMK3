@@ -9,3 +9,4 @@ struct action
 
 void printMenu(const struct action a[]);
 void getUserInput(const struct action a[], const uint8_t breakButton);
+void getUserInput2(const struct action a[], const uint8_t breakButton, void(*alwaysTask)(void));
