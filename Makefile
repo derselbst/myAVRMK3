@@ -2,7 +2,7 @@ AVR_ROOT=
 AVR=$(AVR_ROOT)avr-
 AVRCC=$(AVR)gcc
 AVRCXX=$(AVR)g++
-AVRLD=$(AVR)g++
+AVRLD=$(AVR)gcc
 AVROBJDUMP=$(AVR)objdump
 AVROBJCOPY=$(AVR)objcopy
 AS=$(AVR)as
@@ -11,9 +11,9 @@ AVRDUDE=avrdude
 INCLUDES=-Igames/breakout/ -Igames/gameoflife/ -Ihal/ -Ilogic/
 
 CFLAGS=-Wall -Wextra -O0 -mmcu=atmega2560 -DF_CPU=16000000UL $(INCLUDES)
-LDFLAGS= -mmcu=atmega2560 -Wl,-Map=prog.map,--cref
+LDFLAGS= -mmcu=atmega2560 -O0 -Wl,-Map=prog.map,--cref
 
-OBJ= hal/button.o logic/common.o games/gameoflife/gameoflife.o hal/interrupt.o main.o logic/menu.o hal/lcd.o hal/setup.o logic/time.o games/breakout/logic.o games/breakout/ball.o games/breakout/paddle.o games/breakout/wall.o
+OBJ= hal/button.o logic/common.o games/gameoflife/gameoflife.o hal/interrupt.o main.o logic/menu.o hal/lcd.o hal/setup.o logic/time.o logic/vqc10.o games/breakout/logic.o games/breakout/ball.o games/breakout/paddle.o games/breakout/wall.o
 SRC = $(OBJ:%.o=%.c)
 
 DEPENDFILE = .depend
@@ -28,7 +28,7 @@ dep: $(SRC)
 
 prog: dep $(OBJ)
 	$(AVRLD) $(LDFLAGS) -o $@.elf $(OBJ)
-	$(AVROBJDUMP) -h -S $@.elf > $@.lss
+	$(AVROBJDUMP) $(INCLUDES) --all-headers --source $@.elf > $@.lss
 	$(AVROBJCOPY) -R .eeprom -R .fuse -R .lock -R .signature -O ihex $@.elf $@.hex
 
 %.o: %.c

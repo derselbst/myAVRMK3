@@ -77,6 +77,10 @@ void init()
     DDRJ=0xFF;
 #endif
     LEDADDONPORT=0b00000000;
+    
+    // PORTG as output for VCQ10
+    DDRG=0xFF;
+    PORTG=0;
 
     initInterrupts();
 }

@@ -2,15 +2,17 @@
 #include <stdio.h>
 #include "setup.h" // init()
 #include "common.h" // waitMS()
-#include "gameoflife.h" // :D
+#include "gameoflife.h"
 #include "lcd.h" // LCD_LIGHT()
 #include "time.h" // timeLoop()
 #include "menu.h" // printMenu()
+#include "vqc10.h"
 #include "lcd.h"
 #include "led.h"
 
 void breakout();
 
+void sendLoop();
 int main(void)
 {
     init();
@@ -32,7 +34,7 @@ int main(void)
     LEDADDONPORT=(1 << 3);    // mach blau an
 #endif
 
-    const struct action mainmenu[]=
+    static const struct action mainmenu[]=
     {
         {"Key1: Licht an/aus", &toogleLCDLight, (1 << KEY0)},
         {"Key2: Disp. dunkel", &toogleLCDDisp, (1 << KEY1)},
@@ -40,6 +42,7 @@ int main(void)
         {"JoyUp: Uhr", &timeLoop, (1 << JOYUP)},
         {"JoyLEFT: GofL Set", &GameOfLifeSet,(1 << JOYLEFT)},
         {"JoyRIGHT: Breakout", &breakout,(1 << JOYRIGHT)},
+        {"JoDown: VCQ10", &vcq10Main,(1 << JOYDOWN)},
         {"", (void (*)(void))NULL, 0} // terminal
     };
 
