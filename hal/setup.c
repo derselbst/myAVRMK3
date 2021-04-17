@@ -1,6 +1,7 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include "led.h"
+#include "speaker.h"
 
 static void initInterrupts()
 {
@@ -83,4 +84,5 @@ void init()
     PORTG=0;
 
     initInterrupts();
+    beep_init();
 }
