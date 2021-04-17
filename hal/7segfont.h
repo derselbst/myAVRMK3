@@ -3,9 +3,7 @@
 
 #include <stdint.h>
 
-#define FONT7segLen 37
-
-const uint8_t font7seg [FONT7segLen] =
+static const uint8_t font7seg [] =
 {
     0b00111111, // 0
     0b00000110, // 1
@@ -43,7 +41,6 @@ const uint8_t font7seg [FONT7segLen] =
     0b11110001, // F.
     0b11000000, // -.
     0b11001001,  // 3 waagerechte.
-    0b00000000 //
 };
 
 #endif // SEGFONT_H_INCLUDED

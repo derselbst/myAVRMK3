@@ -128,7 +128,7 @@ ISR (TIMER1_OVF_vect)
         wert=0;
     
 		//if the counter is higher as the count of characters in the font, set counter to the first charcater
-		if(index==FONT7segLen)
+		if(index == (sizeof(font7seg) / sizeof(*font7seg)))
 		{
 			index=0;
 		}
